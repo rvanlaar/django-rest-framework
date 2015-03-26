@@ -50,6 +50,9 @@ def parse_html_list(dictionary, prefix=''):
     for field, value in dictionary.items():
         match = regex.match(field)
         if not match:
+            if not isinstance(value, str):
+                # Only strings can be loaded by JSON.
+                continue
             try:
                 normalized_value = json.loads(value)
             except ValueError:
